@@ -22,6 +22,7 @@ Po wpisaniu w przeglądarkę "localhost:6001" należy się zalogować
 
 Utworzono bazę "testdb" za pomocą polecenia w docker-compose.yml "MYSQL_DATABASE: 'testdb'", która będzie
 stworzona podczas uruchamiania obrazu:
+
 ![image](https://user-images.githubusercontent.com/73463891/144510322-df14b2e7-c752-4daa-86e0-8dd3e5a0c6da.png)
 
 
