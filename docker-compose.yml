@@ -1,0 +1,54 @@
+version: '3.7'
+
+services:
+    nginx:
+        image: nginx:1.19
+        ports:
+            - 80:80
+        volumes:
+            - ./src:/var/www/php
+            - ./docker2/nginx/conf.d:/etc/nginx/conf.d
+        depends_on:
+            - php
+        networks:
+            - backend
+            - frontend
+        
+            
+    php:
+        image: php:8.0-fpm
+        working_dir: /var/www/php
+        volumes:
+            - ./src:/var/www/php
+        networks:
+            - backend
+    
+    mariadb:
+        image: mariadb:10.5.2
+        volumes:
+            - mariadb-volume:/var/lib/mysql
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+            MYSQL_ROOT_PASSWORD: "rootpwd"
+            MYSQL_USER: 'testuser'
+            MYSQL_PASSWORD: 'testpassword'
+            MYSQL_DATABASE: 'testdb'
+        networks:
+            - backend
+            
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links:
+            - 'mariadb:db'
+        ports:
+            - 6001:80
+        networks:
+            - backend
+
+volumes:
+    mariadb-volume:
+    
+networks:
+    frontend:
+    backend:
+            
